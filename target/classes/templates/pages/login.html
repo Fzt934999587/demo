@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>3</title>
+
+
+</head>
+<body>
+	<form method="post">
+		<table width="350" bgcolor="#ccffcc" style="" border="1">
+			<tr align=center>
+				<td>用户名</td>
+				<td><input type="text" name="username" id="username"></td>
+			</tr>
+			<tr align=center>
+				<td>密 码</td>
+				<td><input type="password" name="password" id="password"></td>
+			</tr>
+
+			<tr align=center>
+				<td colspan="2"><input type="button" value="登 录" onclick="doLogin();" />
+				<!-- <input type="submit" class="doLogin" value="立即登录"/> 	-->
+					<input type="reset" value="重 置" /></td>
+			</tr>
+		</table>
+	</form>
+<script src="jq/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".doLogin").click(doLogin);
+})
+function doLogin() {
+//	debugger;
+	var username = document.getElementById("username");
+	var password = document.getElementById("password");
+	if (username.value == "") {
+		alert("请输入用户名");
+		username.focus();
+		return;
+	}
+	if (password.value == "") {
+		alert("请输入密码");
+		return;
+	}
+	//return true;
+	var url="user/doLogin";
+	$.post(url,username,password,function(result){
+		if(result.state==1){
+			console.log("登录成功!");
+		}else{
+			console.log("账号或密码不正确!!");
+		}
+	});
+}
+</script>
+</body>
+
+</html>
