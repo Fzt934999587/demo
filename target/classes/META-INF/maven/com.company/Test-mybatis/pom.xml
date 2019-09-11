@@ -60,7 +60,12 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
-
+<!--spring整合mybatis-plus -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>3.0.6</version>
+		</dependency>
 
   </dependencies>
 </project>

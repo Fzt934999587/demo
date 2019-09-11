@@ -2,9 +2,12 @@ package com.cy.service;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cy.Util.ResultType;
 import com.cy.dao.UserDao;
 import com.cy.pojo.User;
@@ -24,13 +27,17 @@ public class UserServiceImpl implements UserService{
 		user.setUserName(rop.getUserName());
 		user.setPassWord(rop.getPassWord());
 	    int rows=userDao.findUserInfo(user);
+	    //QueryWrapper<User> queryWrapper = new QueryWrapper<>(user);
+	   // User userDB=userDao.selectOne(queryWrapper);
+	    //String token =null;
+	    
 		if(rows>0)
 		{
 			return new ResultType("1","1000","登录成功");
-		}else {
-			return  new ResultType("2","2000","登录失败");
-			}
-		
+			
+		}else{
+			return new ResultType("2","2000","登录失败");
+		}
 		
 	}
 
