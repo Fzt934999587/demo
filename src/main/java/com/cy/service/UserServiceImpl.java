@@ -1,13 +1,7 @@
 package com.cy.service;
 
-import java.util.List;
-
-import javax.servlet.http.Cookie;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cy.Util.ResultType;
 import com.cy.dao.UserDao;
 import com.cy.pojo.User;
