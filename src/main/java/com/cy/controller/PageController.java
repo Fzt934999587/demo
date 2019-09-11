@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cy.Util.CookieUtils;
+import com.cy.aop.LoginCheck;
 
 @Controller
 public class PageController {
@@ -23,11 +24,12 @@ public class PageController {
 	}
 	
 	@RequestMapping("/home")
+	@LoginCheck
 	public String home(){
 		
-		if(CookieUtils.getCookieValue(request, "Token")==null) {
-			return "redirect:/login";
-		}
+//		if(CookieUtils.getCookieValue(request, "Token")==null) {
+//			return "redirect:/login";
+//		}
 		
 		// 没有就跳转到 登录页面
 		
@@ -35,11 +37,12 @@ public class PageController {
 			return "home";
 	}
 	
+	@LoginCheck
 	@RequestMapping("/index")
 	public String index(){
-		if(CookieUtils.getCookieValue(request, "Token")==null) {
-			return "redirect:/login";
-		}
+//		if(CookieUtils.getCookieValue(request, "Token")==null) {
+//			return "redirect:/login";
+//		}
 		
 			return "index";
 	}
