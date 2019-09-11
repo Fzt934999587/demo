@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cy.pojo.User;
 
 @Mapper
-public interface UserDao extends BaseMapper<User>{
+public interface UserDao {
 
 	
 
