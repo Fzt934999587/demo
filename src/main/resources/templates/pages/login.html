@@ -1,58 +1,130 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE html>
+<html>
 <head>
-<title>3</title>
-
-
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
-	<form method="post">
-		<table width="350" bgcolor="#ccffcc" style="" border="1">
-			<tr align=center>
-				<td>用户名</td>
-				<td><input type="text" name="username" id="username"></td>
-			</tr>
-			<tr align=center>
-				<td>密 码</td>
-				<td><input type="password" name="password" id="password"></td>
-			</tr>
+ 
+<form id="form1">
+		姓名：<input id="txt_username" ><br>
+		密码：<input id="txt_password" type="password"><br>
+		<input id="btn_login" type="button" value="登录" ><br>
+</form>
 
-			<tr align=center>
-				<td colspan="2"><input type="button" value="登 录" onclick="doLogin();" />
-				<!-- <input type="submit" class="doLogin" value="立即登录"/> 	-->
-					<input type="reset" value="重 置" /></td>
-			</tr>
-		</table>
-	</form>
+
+<form id="form2">
+		姓名：<input id="username" ><br>
+		密码：<input id="password" type="password"><br>
+		邮件：<input id="email" ><br>
+		
+		<input id="btn_Register" type="button" value="注册" ><br>
+</form>
+
+
 <script src="jq/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$(".doLogin").click(doLogin);
-})
-function doLogin() {
-//	debugger;
-	var username = document.getElementById("username");
-	var password = document.getElementById("password");
-	if (username.value == "") {
-		alert("请输入用户名");
-		username.focus();
-		return;
-	}
-	if (password.value == "") {
-		alert("请输入密码");
-		return;
-	}
-	//return true;
-	var url="user/doLogin";
-	$.post(url,username,password,function(result){
-		if(result.state==1){
-			console.log("登录成功!");
-		}else{
-			console.log("账号或密码不正确!!");
-		}
-	});
-}
-</script>
+ <script type="text/javascript">
+ 
+ 
+ 
+    $(function(){
+    	$('#btn_Register').on('click',function(){
+    		var usernameabc=$(' #username').val();
+    		var passwordabc=$( '#password').val();
+    		var email=$('#email').val();
+    		if (usernameabc== "") {
+    			alert("请输入用户名");
+    			return false;
+    		}
+    		if (passwordabc == "") {
+    			alert("请输入密码");
+    			return false;
+    		}
+    		
+    		var parame={userName:usernameabc,passWord:passwordabc,email:email}
+ 		   alert(JSON.stringify(parame))
+ 		   $.ajax({
+                //提交数据的类型 POST GET
+                type:"POST",
+                //提交的网址
+                url:"/user/doRegister",
+                //提交的数据  
+                data: JSON.stringify(parame),
+               contentType: "application/json; charset=utf-8",//参数格式为json
+             //返回数据的格式
+                datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+                //成功返回之后调用的函数             
+                success:function(data){
+             	   if(data.result==1){
+             		   
+             	   }
+             	   else
+             		   {
+             		   
+             		   }
+                    alert(JSON.stringify( data));
+                },
+                //调用出错执行的函数
+                error: function(){
+                    //请求出错处理
+                    alert("请求失败");
+                }  
+                       
+             });
+    	})
+		
+    	
+    	
+    	$('#btn_login').on('click',function(){
+    		
+    		var usernameabc=$('#form1 #txt_username').val();
+    		var passwordabc=$('#form1 #txt_password').val();
+    		if (usernameabc== "") {
+    			alert("请输入用户名");
+    			return false;
+    		}
+    		if (passwordabc == "") {
+    			alert("请输入密码");
+    			return false;
+    		}
+    		  
+    		   //var d1 ='username='+usernameabc+'&password='+passwordabc
+    		
+    	    	var d={userName:usernameabc,passWord:passwordabc}
+    		//   alert(JSON.stringify(d))
+    		   $.ajax({
+                   //提交数据的类型 POST GET
+                   type:"POST",
+                   //提交的网址
+                   url:"/user/doLogin",
+                   //提交的数据  
+                   data: JSON.stringify(d),
+                  contentType: "application/json; charset=utf-8",//参数格式为json
+                //返回数据的格式
+                   datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+                   //成功返回之后调用的函数             
+                   success:function(data){
+                	   if(data.result==1){
+                		 
+                		   window.location.href="/home"
+                	   }
+                	   else
+                		   {
+                		   
+                		   }
+                       alert(JSON.stringify( data));
+                   },
+                   //调用出错执行的函数
+                   error: function(){
+                       //请求出错处理
+                       alert("请求失败");
+                   }  
+                          
+                });
+    	});
+    	
+	})
+	
+ </script>
 </body>
-
-</html>
