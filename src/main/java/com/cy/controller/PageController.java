@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cy.Util.CookieUtils;
-import com.cy.aop.LoginCheck;
+import com.cy.anno.LoginCheck;
 
 @Controller
 public class PageController {

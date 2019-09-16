@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +6,72 @@
 <title>Insert title here</title>
 </head>
 <body>
-主页
+ 
+
+<form id="form2">
+		姓名：<input id="username" ><br>
+		密码：<input id="password" type="password"><br>
+		邮件：<input id="email" ><br>
+		
+		<input id="btn_Register" type="button" value="新建" ><br>
+</form>
+
+
+<script src="jq/jquery-3.4.1.min.js"></script>
+ <script type="text/javascript">
+ 
+ 
+ 
+    $(function(){
+    	$('#btn_Register').on('click',function(){
+    		var usernameabc=$(' #username').val();
+    		var passwordabc=$( '#password').val();
+    		var email=$('#email').val();
+    		if (usernameabc== "") {
+    			alert("请输入用户名");
+    			return false;
+    		}
+    		if (passwordabc == "") {
+    			alert("请输入密码");
+    			return false;
+    		}
+    		
+    		var parame={userName:usernameabc,passWord:passwordabc,email:email}
+ 		   alert(JSON.stringify(parame))
+ 		   $.ajax({
+                //提交数据的类型 POST GET
+                type:"POST",
+                //提交的网址
+                url:"/user/doRegister",
+                //提交的数据  
+                data: JSON.stringify(parame),
+               contentType: "application/json; charset=utf-8",//参数格式为json
+             //返回数据的格式
+                datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+                //成功返回之后调用的函数             
+                success:function(data){
+                    alert(data.message);
+             	   if(data.result==1){
+             		   
+             	   }
+             	   else
+             		   {
+             		   
+             		   }
+                   // alert(JSON.stringify( data));
+                },
+                //调用出错执行的函数
+                error: function(){
+                    //请求出错处理
+                    alert("请求失败");
+                }  
+                       
+             });
+    	})
+		
+    	
+    	
+	})
+	
+ </script>
 </body>
-</html>

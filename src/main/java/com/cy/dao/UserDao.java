@@ -12,7 +12,7 @@ public interface UserDao {
 
 	
 
-	int findUserInfo(User user);
+	User findUserInfo(User user);
 
 	
 	int userAdd(User user);

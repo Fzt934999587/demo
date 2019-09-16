@@ -1,8 +1,11 @@
 package com.cy.aop;
 
 import com.cy.Util.CookieUtils;
+import com.cy.Util.JedisUtil;
+import com.cy.Util.ObjectMapperUtil;
 
 import lombok.extern.log4j.Log4j;
+import redis.clients.jedis.Jedis;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -34,16 +37,25 @@ public class LoginCheckAspectj {
      * 2.根据request 的header获得用户登录凭证信息token
      * 3.解析token取出登录用户信息
      */
-    @Around(value = "@annotation(com.cy.aop.LoginCheck)")
+    @Around(value = "@annotation(com.cy.anno.LoginCheck)")
     public Object check(ProceedingJoinPoint pjp) throws Throwable {
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
 
         try {
-        	if(CookieUtils.getCookieValue(request, "Token")==null) {
-    			return "redirect:/login";
+        	
+        	String loginUrl="redirect:/login";
+        	String token = CookieUtils.getCookieValue(request, "Token");//
+        	if(token==null) {
+    			return loginUrl;
     		}
+        	
+			Object tokenVal = JedisUtil.get("Token:"+token);
+			if(tokenVal==null) {
+				return loginUrl;
+			}
+			
         } catch(Throwable e) {
         	LOGGER.error(e.getMessage());
         	throw new RuntimeException(e);

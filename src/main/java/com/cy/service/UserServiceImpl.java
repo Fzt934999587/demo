@@ -10,11 +10,15 @@ import com.cy.dao.UserDao;
 import com.cy.pojo.User;
 import com.cy.rmodel.RopUserLogin;
 
+import redis.clients.jedis.JedisCluster;
+
 @Service
 public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserDao userDao;
+	
+	
 	
 	@Override
 	public JsonResult login(RopUserLogin rop) {
@@ -23,10 +27,10 @@ public class UserServiceImpl implements UserService{
 		User user=new User();
 		user.setUserName(rop.getUserName());
 		user.setPassWord(rop.getPassWord());
-	    int rows=userDao.findUserInfo(user);
-		if(rows>0)
+	    User userDB=userDao.findUserInfo(user);
+		if(userDB!=null)
 		{
-			return new JsonResult("1","1000","登录成功");
+			return new JsonResult("1","1000","登录成功",userDB);
 		}else {
 			return  new JsonResult("2","2000","登录失败");
 			}

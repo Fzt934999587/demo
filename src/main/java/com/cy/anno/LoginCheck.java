@@ -1,4 +1,4 @@
-package com.cy.aop;
+package com.cy.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
